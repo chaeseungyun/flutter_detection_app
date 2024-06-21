@@ -2,7 +2,7 @@ import 'package:detection_app/AccountForm.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'Map.dart';
+import 'login.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -61,11 +61,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var messageString = "";
 
-  void getMyDeviceToken() async {
-    final token = await FirebaseMessaging.instance.getToken();
-    print("내 디바이스 토큰: $token");
-  }
-
+  /*
   @override
   void initState() {
     getMyDeviceToken();
@@ -77,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (BuildContext context) {
               // 5초후 모달 자동 닫기
               Future.delayed(const Duration(seconds: 5), () {
+                postData(); // 서버에 데이터 전송
                 Navigator.of(context).pop(true);
               });
               return AlertDialog(
@@ -120,13 +117,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     super.initState();
   }
+  */
 
-  void moveMap() {
+  void moveLogin() {
     Navigator.push(
       context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-          const Map(),
+          const Login(),
           transitionsBuilder:
               (context, animation, secondaryAnimation, child) {
             const begin = Offset(1.0, 0.0);
@@ -183,14 +181,14 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-                onPressed: moveMap,
-                child: const Text('지도로 이동'),
+                onPressed: moveLogin,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 foregroundColor: Colors.white
               ),
+              child: const Text('로그인'),
             ),
-            ElevatedButton(onPressed: moveAccountForm, child: const Text('회원 정보 입력'))
+            ElevatedButton(onPressed: moveAccountForm, child: const Text('회원가입'))
           ],
         ),
       )
